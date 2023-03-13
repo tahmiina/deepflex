@@ -1,0 +1,48 @@
+{% extends '../base.html' %}
+
+{% block title %}Все стримы{% endblock %}
+
+{% block content%}
+    <div class="top-ten">
+        <div class="container">
+            <h2 class="mt-5 mb-5">Все стримы</h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3>Поиск</h3>
+                            <form class="mb-4" action="{% url 'allMovies' %}">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <input type="search" name = "search" class="form-control" placeholder="Stream-name, description">
+                                    </div>
+                                    <div class="col-3">
+                                        <button type = "submit" class="btn btn-primary">&#128269;</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <h3>Категории</h3>
+                            <ul>
+                                <li><a href="{% url 'allMovies' %}" class="text-dark">All streams</a></li>
+                                {% for genre in genres %}
+                                <li><a href="{% url 'filterMovies' slug=genre.slug %}" class="text-dark">{{ genre.genreName }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    {% for movie in movies %}
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h2>{{ movie.movieName}}</h2>
+                            <a href="{% url 'movieDetail' pk=movie.pk %}" class="btn btn-primary">Смотреть<i class="fa-solid fa-play"></i></a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
